@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SWAYÉ HALLOWEEN — 31 October 2026 | Kavish Cafe Vadodara</title>
+
+    <!-- SEO Meta Tags -->
+    <meta name="title" content="SWAYÉ HALLOWEEN — 31 October 2026">
+    <meta name="description" content="Halloween was never meant to be spent indoors. Poolside after dark, music that moves you, glitter bar, makeup transformation, and unexpected moments. Register your interest for SWAYÉ Halloween.">
+    <meta name="theme-color" content="#000000">
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="SWAYÉ HALLOWEEN — 31 October 2026">
+    <meta property="og:description" content="Halloween was never meant to be spent indoors. One Halloween night. A poolside setting. Register your interest now.">
+    <meta property="og:image" content="images/Sec1.webp">
+
+    <!-- Google Fonts: Oswald (Bold Graphic Display), Cinzel (Eerie Serif Display), Montserrat (Clean Body Copy) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Swiper.js CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- 1. LANDSCAPE WARNING OVERLAY -->
+    <div id="landscape-warning" role="alert" aria-live="assertive">
+        <div class="landscape-box">
+            <svg class="rotate-phone-icon" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+                <path d="M12 18h.01"/>
+            </svg>
+            <h2>ROTATE YOUR DEVICE</h2>
+            <p>SWAYÉ Halloween is crafted exclusively for portrait viewing in the shadows.</p>
+        </div>
+    </div>
+
+    <!-- 2. CURTAIN INTRO VIDEO OVERLAY -->
+    <div id="curtain-layer">
+        <video id="curtain-video" playsinline webkit-playsinline disablePictureInPicture preload="auto">
+            <source src="images/intro.mp4" type="video/mp4">
+            <source src="https://res.cloudinary.com/dticzwbrv/video/upload/v1788257331/Swaye_Intro_pianez.mp4" type="video/mp4">
+        </video>
+        
+        <div class="tap-overlay" id="tap-intro-trigger">
+            <div class="tap-skull">
+                <svg viewBox="0 0 24 24" width="46" height="46" fill="#e7d3c2">
+                    <path d="M12 2C7.58 2 4 5.58 4 10c0 2.21.9 4.21 2.35 5.65.23.23.4.52.48.84l.67 2.68c.11.45.52.77.98.77h.52v-1.5c0-.28.22-.5.5-.5s.5.22.5.5V20h5v-1.5c0-.28.22-.5.5-.5s.5.22.5.5V20h.52c.46 0 .87-.32.98-.77l.67-2.68c.08-.32.25-.61.48-.84C19.1 14.21 20 12.21 20 10c0-4.42-3.58-8-8-8zm-3 10c-.83 0-1.5-.67-1.5-1.5S8.17 9 9 9s1.5.67 1.5 1.5S9.83 12 9 12zm6 0c-.83 0-1.5-.67-1.5-1.5S14.17 9 15 9s1.5.67 1.5 1.5S15.83 12 15 12z"/>
+                </svg>
+            </div>
+            <div class="tap-text">TAP TO ENTER THE NIGHT</div>
+            <div class="tap-sub">Turn on audio for full horror experience</div>
+        </div>
+
+        <button id="skip-intro-btn" class="skip-btn" aria-label="Skip Intro">SKIP INTRO ✕</button>
+    </div>
+
+    <!-- 3. BACKGROUND AUDIO & AUDIO FAB -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="images/bg-music.mp3" type="audio/mp3">
+        <source src="images/bg-music.wav" type="audio/wav">
+    </audio>
+
+    <button id="mfab" class="audio-fab" title="Toggle Sound" aria-label="Toggle Sound">
+        <!-- Unmuted Icon -->
+        <svg class="icon-playing" viewBox="0 0 24 24" fill="none" stroke="#e7d3c2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="#e7d3c2"/>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+        </svg>
+        <!-- Muted Icon -->
+        <svg class="icon-muted" viewBox="0 0 24 24" fill="none" stroke="#e7d3c2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" fill="#e7d3c2"/>
+            <line x1="23" y1="9" x2="17" y2="15"/>
+            <line x1="17" y1="9" x2="23" y2="15"/>
+        </svg>
+    </button>
+
+    <!-- 4. FLOATING PARTICLES CANVAS (Ash, Embers & Bats) -->
+    <canvas id="horror-canvas"></canvas>
+
+    <!-- 5. MAIN CONTAINER -->
+    <div id="app">
+
+        <!-- ══════════════════════════════════════════════════════════════
+             SECTION 01: HERO
+        ══════════════════════════════════════════════════════════════ -->
+        <section class="section-wrapper slice-9-16 sec1-wrapper" id="section-hero">
+            <div class="overlay-layer">
+                <!-- Top Title with Subtle Random Bulb Flicker -->
+                <div class="sec1-top-logo">
+                    <h1 class="sec1-logo-text flicker-title">SWAYÉ</h1>
+                </div>
+
+                <!-- Bottom Text & Registration CTA -->
+                <div class="sec1-bottom-group">
+                    <h2 class="sec1-headline">HALLOWEEN WAS NEVER MEANT TO BE SPENT INDOORS.</h2>
+                    <p class="sec1-desc">One Halloween night. A poolside setting. Your people. And a look you don’t have to plan before you arrive.</p>
+                    <div class="sec1-meta">31 OCTOBER 2026 / KAVISH CAFE • VADODARA</div>
+                    <a href="#section-rsvp" class="comic-btn" id="hero-register-btn">REGISTER YOUR INTEREST</a>
+                    <div class="sec1-scroll-cue" id="sec1-scroll-cue">
+                        <span>Scroll to enter the SWAYÉ world.</span>
+                        <svg class="sec1-scroll-arrow" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════════════════════════════════════════════════════════
+             SECTION 02: THE EXPERIENCE
+        ══════════════════════════════════════════════════════════════ -->
+        <section class="section-wrapper slice-9-16 sec2-wrapper" id="section-experience">
+            <div class="overlay-layer">
+                <!-- Top Group -->
+                <div class="sec2-top-group">
+                    <span class="sec2-overline">THE EXPERIENCE</span>
+                    <h2 class="sec2-headline">NOT YOUR USUAL<br>HALLOWEEN PLAN.</h2>
+                    <p class="sec2-desc">Think poolside after dark, music that gets everyone moving, drinks, glitter, good company and a few unexpected moments along the way.</p>
+                </div>
+
+                <!-- Bottom Group -->
+                <div class="sec2-bottom-group">
+                    <p class="sec2-bottom-text">Come with your crew. Meet new people. Stay for the memories.</p>
+                    <div class="sec2-brand-signoff">This is SWAYÉ.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════════════════════════════════════════════════════════
+             SECTION 03: THE TRANSFORMATION
+        ══════════════════════════════════════════════════════════════ -->
+        <section class="section-wrapper slice-9-16 sec3-wrapper" id="section-transformation">
+            <div class="overlay-layer">
+                <!-- Top Group -->
+                <div class="sec3-top-group">
+                    <span class="sec3-overline">THE TRANSFORMATION</span>
+                    <h2 class="sec3-headline">COME NORMAL.<br>LEAVE WITH A LOOK.</h2>
+                </div>
+
+                <!-- Upper Right Bullets -->
+                <div class="sec3-right-bullets">
+                    <div class="sec3-bullet-item">No costume planning.</div>
+                    <div class="sec3-bullet-item">No last-minute shopping.</div>
+                    <div class="sec3-bullet-item">No stress about getting the Halloween look right.</div>
+                </div>
+
+                <!-- Lower Left Descriptive Text -->
+                <div class="sec3-left-desc">
+                    <p class="sec3-desc-p1">Show up in your regular outfit and explore the makeup, glitter and transformation experience available at SWAYÉ.</p>
+                    <p class="sec3-desc-p2">Your Halloween look can start when you get here.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════════════════════════════════════════════════════════
+             SECTION 04: WHAT'S WAITING (SWIPER CAROUSEL + FEATURE BOX)
+        ══════════════════════════════════════════════════════════════ -->
+        <section class="section-wrapper slice-9-16 sec4-wrapper" id="section-waiting">
+            <div class="overlay-layer">
+                <!-- Top Group -->
+                <div class="sec4-top-group">
+                    <span class="sec4-overline">WHAT'S WAITING FOR YOU</span>
+                    <h2 class="sec4-headline">ONE NIGHT. A LOT TO GET INTO.</h2>
+                </div>
+
+                <!-- Swiper Carousel -->
+                <div class="sec4-carousel-container">
+                    <button class="swiper-nav-arrow swiper-btn-prev" aria-label="Previous slide">
+                        <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+
+                    <div class="swiper horror-swiper">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">
+                                <img src="images/slide1.webp" alt="SWAYÉ Crowd Atmosphere" loading="lazy">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="images/slide2.webp" alt="Poolside Music & Smiles" loading="lazy">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="images/slide3.webp" alt="Late Night Dancing" loading="lazy">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="images/slide1.webp" alt="SWAYÉ Crowd Atmosphere" loading="lazy">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="images/slide2.webp" alt="Poolside Music & Smiles" loading="lazy">
+                            </div>
+                            <div class="swiper-slide">
+                                <img src="images/slide3.webp" alt="Late Night Dancing" loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="swiper-nav-arrow swiper-btn-next" aria-label="Next slide">
+                        <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                </div>
+
+                <!-- Bottom Comic Box Over Black Area -->
+                <div class="sec4-box-content">
+                    <h3 class="sec4-box-title">ONE NIGHT. A LOT TO GET INTO.</h3>
+
+                    <div class="sec4-features-grid">
+                        <!-- Left Features List with Custom SVG Icons -->
+                        <div class="sec4-features-list">
+                            <!-- Disco Ball -->
+                            <div class="sec4-feature-row">
+                                <span class="sec4-feature-icon">
+                                    <svg viewBox="0 0 24 24">
+                                        <line x1="12" y1="2" x2="12" y2="5"/>
+                                        <circle cx="12" cy="13" r="8"/>
+                                        <path d="M12 5c2.2 0 4 3.6 4 8s-1.8 8-4 8-4-3.6-4-8 1.8-8 4-8z"/>
+                                        <line x1="4" y1="13" x2="20" y2="13"/>
+                                        <line x1="5.5" y1="9" x2="18.5" y2="9"/>
+                                        <line x1="5.5" y1="17" x2="18.5" y2="17"/>
+                                    </svg>
+                                </span>
+                                <span class="sec4-feature-text">- Poolside atmosphere</span>
+                            </div>
+
+                            <!-- DJ and Music -->
+                            <div class="sec4-feature-row">
+                                <span class="sec4-feature-icon">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M9 18V5l12-2v13"/>
+                                        <circle cx="6" cy="18" r="3"/>
+                                        <circle cx="18" cy="16" r="3"/>
+                                    </svg>
+                                </span>
+                                <span class="sec4-feature-text">- DJ and music</span>
+                            </div>
+
+                            <!-- Drinks Available -->
+                            <div class="sec4-feature-row">
+                                <span class="sec4-feature-icon">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M8 22h8"/>
+                                        <line x1="12" y1="13" x2="12" y2="22"/>
+                                        <path d="M4 4l8 9 8-9H4z"/>
+                                    </svg>
+                                </span>
+                                <span class="sec4-feature-text">- Drinks available at the venue</span>
+                            </div>
+
+                            <!-- Glitter Bar -->
+                            <div class="sec4-feature-row">
+                                <span class="sec4-feature-icon">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M12 2l2.4 5 5.6.8-4 4 1 5.6-5-2.6-5 2.6 1-5.6-4-4 5.6-.8z"/>
+                                    </svg>
+                                </span>
+                                <span class="sec4-feature-text">- Glitter bar</span>
+                            </div>
+
+                            <!-- Makeup Transformation -->
+                            <div class="sec4-feature-row">
+                                <span class="sec4-feature-icon">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M4 14l6-6 3 3-6 6z"/>
+                                        <path d="M14 4l2-2 4 4-2 2z"/>
+                                        <path d="M13 5l2 2"/>
+                                    </svg>
+                                </span>
+                                <span class="sec4-feature-text">- Halloween makeup and transformation</span>
+                            </div>
+
+                            <!-- Challenges & Surprises -->
+                            <div class="sec4-feature-row">
+                                <span class="sec4-feature-icon">
+                                    <svg viewBox="0 0 24 24">
+                                        <rect x="3" y="8" width="18" height="4" rx="1"/>
+                                        <path d="M12 8v13"/>
+                                        <path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/>
+                                        <path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 4.8 0 0 1 12 8a4.8 4.8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/>
+                                    </svg>
+                                </span>
+                                <span class="sec4-feature-text">- Challenges, surprises and photo <br/> moments</span>
+                            </div>
+                        </div>
+
+                        <!-- Right Column Decorative Sketches -->
+                        <div class="sec4-doodles-column" aria-hidden="true">
+                            <!-- Masquerade Mask -->
+                            <svg style="rotate: -20deg;"  xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+	<path d="M0 0h24v24H0z" fill="none" />
+	<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+		<path d="M11.36 10.23A5.5 5.5 0 0 1 6.7 4.68a5.5 5.5 0 0 1 4.66 5.55M12 10a5.5 5.5 0 0 1 0-7.25A5.5 5.5 0 0 1 12 10m.64.23a5.5 5.5 0 0 1 4.66-5.55a5.5 5.5 0 0 1-4.66 5.55m-9.89 2.02c3-1 6.25-.75 9.25 1c3-1.75 6.25-2 9.25-1c0 4.5-2.25 7.25-5.25 7.25c-1.75 0-3-1-4-2.5c-1 1.5-2.25 2.5-4 2.5c-3 0-5.25-2.75-5.25-7.25" />
+		<path d="M5.5 15.25c1.25-1.25 3-1.25 4.25 0c-1.25 1.25-3 1.25-4.25 0m8.75 0c1.25-1.25 3-1.25 4.25 0c-1.25 1.25-3 1.25-4.25 0" />
+	</g>
+</svg>
+
+                            <!-- Lightning Bolt -->
+                            
+                            <svg style="rotate: 10deg;" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+	<path d="M0 0h24v24H0z" fill="none" />
+	<path fill="currentColor" d="M12 2c-4.41 0-8 3.59-8 8v10.695a1.251 1.251 0 0 0 1.875 1.085l2.5-1.445l2.25 1.3c.425.245.9.37 1.375.37s.95-.125 1.375-.37l2.25-1.3l2.5 1.445c.39.225.86.225 1.25 0s.625-.63.625-1.085V10c0-4.41-3.59-8-8-8m-1.5 9.25a1.25 1.25 0 0 1-2.5 0v-1a1.25 1.25 0 0 1 2.5 0zm5.5 0a1.25 1.25 0 0 1-2.5 0v-1a1.25 1.25 0 0 1 2.5 0z" />
+</svg>
+
+                            <!-- Party Mask 2 -->
+                            <svg style="rotate: -35deg;"  xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+	<path d="M0 0h24v24H0z" fill="none" />
+	<path fill="currentColor" fill-rule="evenodd" d="M3.055 8h3.98l-1.4 7H9v-2h6v2h3.37l-1.76-9.145A4.76 4.76 0 0 0 11.945 2H8.08a2.73 2.73 0 0 0-1.945.805l-3.7 3.7A.877.877 0 0 0 3.055 8M13.5 14.5h-3V17h3zm6.06 2l1.635 1.635c.52.52.805 1.21.805 1.945V22H2v-1.92c0-.735.285-1.425.805-1.945L4.44 16.5H9v2h6v-2z" clip-rule="evenodd" />
+</svg>
+
+                        </div>
+                    </div>
+
+                    <p class="sec4-disclaimer">Specific activities, access and inclusions are subject to the final event arrangements.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════════════════════════════════════════════════════════
+             SECTION 05: ENTRY & REGISTRATION (RSVP FORM)
+        ══════════════════════════════════════════════════════════════ -->
+        <section class="section-wrapper slice-9-16 sec5-wrapper" id="section-rsvp">
+            <div class="overlay-layer">
+                <!-- Top Header -->
+                <div class="sec5-top-header">
+                    <h2 class="sec5-header-title">ENTRY & REGISTRATION</h2>
+                </div>
+
+                <!-- Form Box -->
+                <div class="sec5-form-box">
+                    <h3 class="sec5-box-headline">YOUR HALLOWEEN<br>PLANS, SORTED.</h3>
+                    <p class="sec5-box-sub">31 October. One different kind of night.</p>
+
+                    <!-- Interactive Form -->
+                    <form id="rsvp-form" novalidate>
+                        <!-- Pass Selection Dropdown -->
+                        <div class="form-group">
+                            <select id="ticket-pass" class="form-control" required>
+                                <option value="" disabled selected>SELECT YOUR PASS TIER</option>
+                                <option value="stage">STAGE ENTRY — ₹499 + 18% GST (₹588.82)</option>
+                                <option value="couple">COUPLE PASS — ₹899 + 18% GST (₹1,060.82)</option>
+                                <option value="squad">VIP SQUAD (5 GUESTS) — ₹1,999 + 18% GST (₹2,358.82)</option>
+                            </select>
+                        </div>
+
+                        <!-- Full Name -->
+                        <div class="form-group">
+                            <input type="text" id="full-name" class="form-control" placeholder="YOUR FULL NAME" required autocomplete="name">
+                        </div>
+
+                        <!-- Instagram Profile / Handle -->
+                        <div class="form-group">
+                            <input type="text" id="insta-handle" class="form-control" placeholder="INSTAGRAM HANDLE OR LINK (@USERNAME)" required autocomplete="username">
+                        </div>
+
+                        <!-- Phone Number -->
+                        <div class="form-group">
+                            <input type="tel" id="phone-number" class="form-control" placeholder="PHONE NUMBER (10 DIGITS)" required pattern="[0-9]{10}" autocomplete="tel">
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" id="rsvp-submit-btn" class="comic-btn rsvp-submit">
+                            <span id="btn-text">REGISTER YOUR INTEREST</span>
+                        </button>
+                    </form>
+
+                    <!-- Success & WhatsApp Confirmation Card -->
+                    <div id="rsvp-success-card">
+                        <div class="success-skull">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 2C7.58 2 4 5.58 4 10c0 2.21.9 4.21 2.35 5.65.23.23.4.52.48.84l.67 2.68c.11.45.52.77.98.77h.52v-1.5c0-.28.22-.5.5-.5s.5.22.5.5V20h5v-1.5c0-.28.22-.5.5-.5s.5.22.5.5V20h.52c.46 0 .87-.32.98-.77l.67-2.68c.08-.32.25-.61.48-.84C19.1 14.21 20 12.21 20 10c0-4.42-3.58-8-8-8zm-3 10c-.83 0-1.5-.67-1.5-1.5S8.17 9 9 9s1.5.67 1.5 1.5S9.83 12 9 12zm6 0c-.83 0-1.5-.67-1.5-1.5S14.17 9 15 9s1.5.67 1.5 1.5S15.83 12 15 12z"/>
+                            </svg>
+                        </div>
+                        <h4 class="success-title">REGISTRATION RECORDED</h4>
+                        <p class="success-text" id="success-guest-msg">Your interest has been recorded in the shadows. The SWAYÉ team will reach out with entry instructions.</p>
+                        <a href="#" id="whatsapp-direct-link" target="_blank" rel="noopener noreferrer" class="whatsapp-btn">
+                            <span>CHAT ON WHATSAPP</span>
+                        </a>
+                    </div>
+
+                    <p class="sec5-disclaimer">*Registration is coordinated by the SWAYÉ team. The website does not process payments or confirm bookings.*</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════════════════════════════════════════════════════════
+             SECTION 06: FAQs (CSS-BASED, NO BG IMAGE)
+        ══════════════════════════════════════════════════════════════ -->
+        <section class="section-wrapper sec6-faq-container" id="section-faqs">
+            <h2 class="sec6-faq-title">FAQs</h2>
+
+            <div class="faq-accordion">
+                <!-- FAQ Item 1 -->
+                <div class="faq-item">
+                    <button class="faq-header" aria-expanded="false">
+                        <span class="faq-question-text">Do I need to arrive in a Halloween costume?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <div class="faq-collapse">
+                        <div class="faq-body">
+                            <p class="faq-answer-text">No. You can arrive in your regular outfit and explore the makeup and transformation experience at the event.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="faq-item">
+                    <button class="faq-header" aria-expanded="false">
+                        <span class="faq-question-text">Where is SWAYÉ happening?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <div class="faq-collapse">
+                        <div class="faq-body">
+                            <p class="faq-answer-text">Kavish Cafe, Vadodara.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="faq-item">
+                    <button class="faq-header" aria-expanded="false">
+                        <span class="faq-question-text">When is the event?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <div class="faq-collapse">
+                        <div class="faq-body">
+                            <p class="faq-answer-text">31 October 2026. Confirmed timings will be shared by the SWAYÉ team.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="faq-item">
+                    <button class="faq-header" aria-expanded="false">
+                        <span class="faq-question-text">Are drinks included in the entry price?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <div class="faq-collapse">
+                        <div class="faq-body">
+                            <p class="faq-answer-text">Drinks are available at the venue and are charged separately unless otherwise confirmed by the SWAYÉ team.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 5 -->
+                <div class="faq-item">
+                    <button class="faq-header" aria-expanded="false">
+                        <span class="faq-question-text">What should I wear?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <div class="faq-collapse">
+                        <div class="faq-body">
+                            <p class="faq-answer-text">Wear something you feel good in and that suits a poolside setting. Follow the event's pool and safety guidelines.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 6 -->
+                <div class="faq-item">
+                    <button class="faq-header" aria-expanded="false">
+                        <span class="faq-question-text">How do I register?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <div class="faq-collapse">
+                        <div class="faq-body">
+                            <p class="faq-answer-text">Use the registration enquiry option on this website to contact the SWAYÉ team. They'll guide you through the registration process.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 7 -->
+                <div class="faq-item">
+                    <button class="faq-header" aria-expanded="false">
+                        <span class="faq-question-text">Where can I ask questions?</span>
+                        <svg class="faq-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <div class="faq-collapse">
+                        <div class="faq-body">
+                            <p class="faq-answer-text">Contact SWAYÉ through its official Instagram account or the contact details provided on this website.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════════════════════════════════════════════════════════
+             FOOTER BANNER: "SEE YOU AFTER DARK" (Using Sec6.webp)
+        ══════════════════════════════════════════════════════════════ -->
+        <footer class="section-wrapper slice-footer sec6-footer-wrapper" id="section-footer">
+            <div class="overlay-layer">
+                <div class="sec6-footer-content">
+                    <h2 class="footer-dark-title">31.10.26. SEE YOU AFTER DARK.</h2>
+                    <div class="footer-meta-venue">SWAYÉ HALLOWEEN / KAVISH CAFE • VADODARA</div>
+                    <a href="#section-rsvp" class="comic-btn footer-register-btn">REGISTER YOUR INTEREST</a>
+                    <div class="footer-tagline">Good people. Better nights.</div>
+                    <div class="footer-credit">Designed with darkness for <a href="https://invitebox.in/" target="_blank" rel="noopener noreferrer">SWAYÉ</a></div>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Swiper.js Script CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- Main JavaScript Logic -->
+    <script src="script.js"></script>
+</body>
+</html>
