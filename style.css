@@ -209,6 +209,8 @@ body.unlocked {
     max-width: var(--max-w);
     height: 100vh;
     height: 100dvh;
+    container-type: inline-size;
+    container-name: curtain;
     z-index: 9999;
     background: #000000;
     display: flex;
@@ -252,31 +254,36 @@ body.unlocked {
 }
 
 .tap-skull svg {
+    width: clamp(34px, 9cqi, 48px);
+    height: clamp(34px, 9cqi, 48px);
     filter: drop-shadow(0 0 12px var(--color-blood-glow));
     margin-bottom: 8px;
 }
 
 .tap-text {
     font-family: var(--font-display);
-    font-size: 1.35rem;
+    font-size: clamp(0.95rem, 4.4cqi, 1.35rem);
     font-weight: 700;
-    letter-spacing: 0.2em;
+    letter-spacing: clamp(0.1em, 1.2cqi, 0.2em);
     color: var(--color-bone);
     text-transform: uppercase;
     text-shadow: 0 0 15px var(--color-blood), 0 0 30px var(--color-blood);
     border: 2px solid var(--color-bone);
     box-shadow: 0 0 0 2px #000000, 0 0 0 4px var(--color-bone);
-    padding: 10px 22px;
+    padding: clamp(8px, 2.2cqi, 12px) clamp(14px, 4.5cqi, 24px);
     background: rgba(0, 0, 0, 0.7);
+    max-width: 90cqi;
+    white-space: nowrap;
 }
 
 .tap-sub {
     font-family: var(--font-body);
-    font-size: 0.75rem;
+    font-size: clamp(0.68rem, 2.8cqi, 0.85rem);
     color: var(--color-bone-muted);
     letter-spacing: 0.08em;
     text-transform: uppercase;
     margin-top: 10px;
+    max-width: 85cqi;
 }
 
 .skip-btn {
