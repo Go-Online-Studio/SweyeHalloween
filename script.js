@@ -17,13 +17,96 @@ document.addEventListener('DOMContentLoaded', () => {
     window.scrollTo(0, 0);
 
     // ── UI Elements ──
+    const loaderLayer = document.getElementById('loader-layer');
+    const loaderProgressBar = document.getElementById('loader-bar-progress');
     const curtainLayer = document.getElementById('curtain-layer');
     const curtainVideo = document.getElementById('curtain-video');
     const tapIntroTrigger = document.getElementById('tap-intro-trigger');
-    const skipIntroBtn = document.getElementById('skip-intro-btn');
     const bgMusic = document.getElementById('bg-music');
     const mfab = document.getElementById('mfab');
     const sec1ScrollCue = document.getElementById('sec1-scroll-cue');
+
+    // ── LIGHTNING FAST INTRO LOADER (Max 3s / Instant Dismissal on Assets Ready) ──
+    let isLoaderDismissed = false;
+    let loaderProgress = 15;
+
+    // Progress bar animation ticker
+    const progressInterval = setInterval(() => {
+        if (isLoaderDismissed) {
+            clearInterval(progressInterval);
+            return;
+        }
+        if (loaderProgress < 90) {
+            loaderProgress += Math.random() * 18 + 7;
+            if (loaderProgressBar) {
+                loaderProgressBar.style.width = Math.min(loaderProgress, 90) + '%';
+            }
+        }
+    }, 120);
+
+    function dismissLoader() {
+        if (isLoaderDismissed) return;
+        isLoaderDismissed = true;
+        clearInterval(progressInterval);
+
+        if (loaderProgressBar) {
+            loaderProgressBar.style.width = '100%';
+        }
+
+        // Brief delay for visual completion, then smoothly fade out
+        setTimeout(() => {
+            if (loaderLayer) {
+                loaderLayer.classList.add('loaded');
+                setTimeout(() => {
+                    loaderLayer.style.display = 'none';
+                }, 500);
+            }
+        }, 150);
+    }
+
+    // Maximum 3 second timeout guarantee
+    const maxLoaderTimer = setTimeout(() => {
+        dismissLoader();
+    }, 3000);
+
+    // Track First Section Assets & Video Readiness
+    const requiredAssets = [
+        'images/vlcsnap-2026-10-22-10h54m44s325.webp', // Video poster (LCP)
+        'images/Sec1.webp'                            // Hero background (LCP)
+    ];
+
+    let loadedCount = 0;
+    const totalRequired = requiredAssets.length + 1; // +1 for video readiness
+
+    function checkAllReady() {
+        loadedCount++;
+        if (loadedCount >= totalRequired) {
+            clearTimeout(maxLoaderTimer);
+            dismissLoader();
+        }
+    }
+
+    // Preload Section 1 images
+    requiredAssets.forEach(src => {
+        const img = new Image();
+        img.fetchPriority = 'high';
+        img.onload = checkAllReady;
+        img.onerror = checkAllReady;
+        img.src = src;
+    });
+
+    // Check video readiness
+    if (curtainVideo) {
+        if (curtainVideo.readyState >= 2) {
+            checkAllReady();
+        } else {
+            curtainVideo.addEventListener('loadeddata', checkAllReady, { once: true });
+            curtainVideo.addEventListener('canplay', checkAllReady, { once: true });
+            curtainVideo.addEventListener('error', checkAllReady, { once: true });
+        }
+    } else {
+        checkAllReady();
+    }
 
     // ── Swiper.js Initialization ──
     const horrorSwiper = new Swiper('.horror-swiper', {
@@ -94,8 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    curtainLayer.addEventListener('click', (e) => {
-        if (e.target === skipIntroBtn) return;
+    curtainLayer.addEventListener('click', () => {
         if (!curtainVideo.paused && !curtainVideo.ended) {
             unlockExperience();
         } else {
@@ -103,10 +185,30 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    skipIntroBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        unlockExperience();
-    });
+    // ── Lazy Load Bottom Sections (Sec2, Sec3, Sec4, Sec5, Sec6) for Lightning LCP/FCP ──
+    const lazySections = document.querySelectorAll('[data-bg]');
+    if ('IntersectionObserver' in window) {
+        const bgObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const sec = entry.target;
+                    const bgUrl = sec.getAttribute('data-bg');
+                    if (bgUrl) {
+                        sec.style.backgroundImage = `url('${bgUrl}')`;
+                    }
+                    observer.unobserve(sec);
+                }
+            });
+        }, { rootMargin: '250px 0px' });
+
+        lazySections.forEach(sec => bgObserver.observe(sec));
+    } else {
+        // Fallback for browsers without IntersectionObserver
+        lazySections.forEach(sec => {
+            const bgUrl = sec.getAttribute('data-bg');
+            if (bgUrl) sec.style.backgroundImage = `url('${bgUrl}')`;
+        });
+    }
 
     // ── Background Audio Toggle FAB ──
     mfab.addEventListener('click', (e) => {

@@ -16,9 +16,19 @@
     <meta property="og:description" content="Halloween was never meant to be spent indoors. One Halloween night. A poolside setting. Register your interest now.">
     <meta property="og:image" content="images/Sec1.webp">
 
-    <!-- Google Fonts: Oswald (Bold Graphic Display), Cinzel (Eerie Serif Display), Montserrat (Clean Body Copy) -->
+    <!-- Performance Optimizations: Preconnects & High-Priority Asset Preload -->
+    <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Preload Video Poster (First visual LCP element) with High Priority -->
+    <link rel="preload" as="image" href="images/vlcsnap-2026-10-22-10h54m44s325.webp" type="image/webp" fetchpriority="high">
+    <!-- Preload Hero Section Background Image (Sec1.webp) with High Priority -->
+    <link rel="preload" as="image" href="images/Sec1.webp" type="image/webp" fetchpriority="high">
+    <!-- Preload Intro Video stream/file -->
+    <link rel="preload" as="video" href="https://res.cloudinary.com/dticzwbrv/video/upload/v1792646724/Pumpkin_Cracks_Releasing_Bats_smyysl.mp4" type="video/mp4">
+
+    <!-- Google Fonts: Oswald (Bold Graphic Display), Cinzel (Eerie Serif Display), Montserrat (Clean Body Copy) -->
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
 
     <!-- Swiper.js CSS -->
@@ -27,6 +37,25 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+    <!-- 0. LIGHTNING FAST LOADER OVERLAY (Max 3s / Dismisses instantly on assets ready) -->
+    <div id="loader-layer" class="loader-layer" aria-label="Loading Invitation">
+        <div class="loader-container">
+            <div class="loader-pumpkin">
+                <svg viewBox="0 0 24 24" width="56" height="56" fill="none" stroke="#e7d3c2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2v3M9 3.5l1.5 2M15 3.5l-1.5 2" stroke="#7d0408" stroke-width="2.2"/>
+                    <path d="M12 5C6.5 5 3 8.5 3 13.5c0 4.5 3.5 7.5 9 7.5s9-3 9-7.5C21 8.5 17.5 5 12 5z" fill="#140203" stroke="#e7d3c2"/>
+                    <path d="M8 11l1.5-2 1.5 2zm6 0l1.5-2 1.5 2z" fill="#7d0408" stroke="#7d0408"/>
+                    <path d="M7.5 15.5c1.5 1.5 3 .5 4.5 1.5 1.5-1 3 0 4.5-1.5-1.5 2.5-3 2.5-4.5 2.5s-3 0-4.5-2.5z" fill="#7d0408"/>
+                </svg>
+            </div>
+            <div class="loader-text">AWAKENING SWAYÉ...</div>
+            <div class="loader-bar-wrap">
+                <div class="loader-bar" id="loader-bar-progress"></div>
+            </div>
+            <div class="loader-status">PREPARING THE NIGHT</div>
+        </div>
+    </div>
 
     <!-- 1. LANDSCAPE WARNING OVERLAY -->
     <div id="landscape-warning" role="alert" aria-live="assertive">
@@ -42,9 +71,8 @@
 
     <!-- 2. CURTAIN INTRO VIDEO OVERLAY -->
     <div id="curtain-layer">
-        <video id="curtain-video" playsinline webkit-playsinline disablePictureInPicture preload="auto">
-            <source src="images/intro.mp4" type="video/mp4">
-            <source src="https://res.cloudinary.com/dticzwbrv/video/upload/v1788257331/Swaye_Intro_pianez.mp4" type="video/mp4">
+        <video id="curtain-video" playsinline webkit-playsinline disablePictureInPicture preload="auto" poster="images/vlcsnap-2026-10-22-10h54m44s325.webp">
+            <source src="https://res.cloudinary.com/dticzwbrv/video/upload/v1792646724/Pumpkin_Cracks_Releasing_Bats_smyysl.mp4" type="video/mp4">
         </video>
         
         <div class="tap-overlay" id="tap-intro-trigger">
@@ -56,14 +84,11 @@
             <div class="tap-text">TAP TO ENTER THE NIGHT</div>
             <div class="tap-sub">Turn on audio for full horror experience</div>
         </div>
-
-        <button id="skip-intro-btn" class="skip-btn" aria-label="Skip Intro">SKIP INTRO ✕</button>
     </div>
 
     <!-- 3. BACKGROUND AUDIO & AUDIO FAB -->
     <audio id="bg-music" loop preload="auto">
-        <source src="images/bg-music.mp3" type="audio/mp3">
-        <source src="images/bg-music.wav" type="audio/wav">
+        <source src="images/sigmamusicart-horror-horror-trailer-520612.mp3" type="audio/mp3">
     </audio>
 
     <button id="mfab" class="audio-fab" title="Toggle Sound" aria-label="Toggle Sound">
@@ -116,7 +141,7 @@
         <!-- ══════════════════════════════════════════════════════════════
              SECTION 02: THE EXPERIENCE
         ══════════════════════════════════════════════════════════════ -->
-        <section class="section-wrapper slice-9-16 sec2-wrapper" id="section-experience">
+        <section class="section-wrapper slice-9-16 sec2-wrapper lazy-bg" data-bg="images/Sec2.webp" id="section-experience">
             <div class="overlay-layer">
                 <!-- Top Group -->
                 <div class="sec2-top-group">
@@ -136,7 +161,7 @@
         <!-- ══════════════════════════════════════════════════════════════
              SECTION 03: THE TRANSFORMATION
         ══════════════════════════════════════════════════════════════ -->
-        <section class="section-wrapper slice-9-16 sec3-wrapper" id="section-transformation">
+        <section class="section-wrapper slice-9-16 sec3-wrapper lazy-bg" data-bg="images/Sec3.webp" id="section-transformation">
             <div class="overlay-layer">
                 <!-- Top Group -->
                 <div class="sec3-top-group">
@@ -162,7 +187,7 @@
         <!-- ══════════════════════════════════════════════════════════════
              SECTION 04: WHAT'S WAITING (SWIPER CAROUSEL + FEATURE BOX)
         ══════════════════════════════════════════════════════════════ -->
-        <section class="section-wrapper slice-9-16 sec4-wrapper" id="section-waiting">
+        <section class="section-wrapper slice-9-16 sec4-wrapper lazy-bg" data-bg="images/Sec4.webp" id="section-waiting">
             <div class="overlay-layer">
                 <!-- Top Group -->
                 <div class="sec4-top-group">
@@ -321,7 +346,7 @@
         <!-- ══════════════════════════════════════════════════════════════
              SECTION 05: ENTRY & REGISTRATION (RSVP FORM)
         ══════════════════════════════════════════════════════════════ -->
-        <section class="section-wrapper slice-9-16 sec5-wrapper" id="section-rsvp">
+        <section class="section-wrapper slice-9-16 sec5-wrapper lazy-bg" data-bg="images/Sec5.webp" id="section-rsvp">
             <div class="overlay-layer">
                 <!-- Top Header -->
                 <div class="sec5-top-header">
@@ -488,7 +513,7 @@
         <!-- ══════════════════════════════════════════════════════════════
              FOOTER BANNER: "SEE YOU AFTER DARK" (Using Sec6.webp)
         ══════════════════════════════════════════════════════════════ -->
-        <footer class="section-wrapper slice-footer sec6-footer-wrapper" id="section-footer">
+        <footer class="section-wrapper slice-footer sec6-footer-wrapper lazy-bg" data-bg="images/Sec6.webp" id="section-footer">
             <div class="overlay-layer">
                 <div class="sec6-footer-content">
                     <h2 class="footer-dark-title">31.10.26. SEE YOU AFTER DARK.</h2>
