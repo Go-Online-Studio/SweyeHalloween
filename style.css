@@ -428,7 +428,7 @@ body.unlocked {
   /* Clause 2.3: Heavy inset black shadow vignette */
   box-shadow:
     inset 0 0 90px rgba(0, 0, 0, 0.98),
-    0 0 80px rgba(0, 0, 1);
+    0 0 80px #000000;
   overflow-x: clip;
   z-index: 1;
 }
@@ -437,22 +437,20 @@ body.unlocked {
 #app::before {
   content: "";
   position: fixed;
-  inset: 0;
+  top: 0;
   left: 0;
   right: 0;
+  bottom: 0;
   margin: 0 auto;
   width: 100%;
   max-width: var(--max-w);
-  height: 100vh;
-  height: 100dvh;
   pointer-events: none;
-  box-shadow: inset 0 0 60px 20px #000000;
   z-index: 80;
+  background:
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, transparent 7%, transparent 93%, rgba(0, 0, 0, 0.85) 100%),
+    radial-gradient(ellipse at center, transparent 60%, rgba(0, 0, 0, 0.65) 100%);
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
-  will-change: transform;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
 }
 
 /* ══════════════════════════════════════════════════════════════
