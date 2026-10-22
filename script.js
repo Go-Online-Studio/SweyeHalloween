@@ -274,7 +274,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const submitBtn = document.getElementById('rsvp-submit-btn');
     const btnText = document.getElementById('btn-text');
     const successCard = document.getElementById('rsvp-success-card');
-    const whatsappDirectLink = document.getElementById('whatsapp-direct-link');
     const successGuestMsg = document.getElementById('success-guest-msg');
 
     // Format Instagram Link/Handle
@@ -364,17 +363,13 @@ document.addEventListener('DOMContentLoaded', () => {
             phone: guestPhone
         };
 
-        // Formulate WhatsApp message URL for direct team contact
-        const waText = encodeURIComponent(`Hi SWAYÉ Team! I would like to confirm my Halloween RSVP:\n\nName: ${guestName}\nPass: ${passName}\nPhone: ${guestPhone}\nInstagram: ${guestInsta}\n\nSee you after dark!`);
-        whatsappDirectLink.href = `https://wa.me/919999999999?text=${waText}`;
-
         function showSuccess() {
             submitBtn.disabled = false;
             btnText.textContent = 'REGISTER YOUR INTEREST';
             isSubmitting = false;
 
             rsvpForm.style.display = 'none';
-            successGuestMsg.textContent = `Welcome, ${guestName}. Your interest for "${passName}" has been recorded. Tap below to fast-track your confirmation via WhatsApp.`;
+            successGuestMsg.textContent = `Welcome, ${guestName}. Your interest for "${passName}" has been recorded. The SWAYÉ team will reach out with entry instructions.`;
             successCard.style.display = 'block';
             successCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
