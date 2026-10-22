@@ -943,7 +943,7 @@ body.unlocked {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    padding: 3.5cqi 3cqi;
+    padding: 11.5cqi 3cqi 3.5cqi;
     text-align: center;
 }
 
@@ -1133,8 +1133,8 @@ select.form-control option {
    SECTION 06: FAQs (CSS-BASED, NO BG IMAGE) & FOOTER BANNER
 ══════════════════════════════════════════════════════════════ */
 .sec6-faq-container {
-    background: linear-gradient(180deg, #7d0408 0%, #4a0104 35%, #180001 75%, #000000 100%);
-    padding: 8cqi 5cqi 10cqi;
+    background: linear-gradient(186deg, #530d0c 0%, #4a0104 35%, #61100b 75%, #630f0b 100%);
+    padding: clamp(34px, 40px, 55px) clamp(12px,18px, 24px);
     position: relative;
     z-index: 10;
 }
@@ -1240,7 +1240,7 @@ select.form-control option {
 
 .sec6-footer-content {
     position: absolute;
-    top: 13cqi;
+    top: 20cqi;
     left: 5cqi;
     right: 5cqi;
     display: flex;
